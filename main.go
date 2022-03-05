@@ -26,14 +26,14 @@ var movies []Movie
 
 func getMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(movies) //moviesleri w de dediğimiz gibi json olarak gönderiyoruz
+	json.NewEncoder(w).Encode(movies) 
 }
 
 func deleteMovie(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r) //id gönderince r nin requestini çinde olacak zaten bu şekilde params atacağım
+	params := mux.Vars(r) 
 	for index, item := range movies {
-		if item.ID == params["id"] { //burada'da idye erişip birmi ona bakıyorum
+		if item.ID == params["id"] { 
 			movies = append(movies[:index], movies[index+1:]...)
 			break
 		}
@@ -58,7 +58,7 @@ func createdMovie(w http.ResponseWriter, r *http.Request) {
 	var movie Movie
 	_ = json.NewDecoder(r.Body).Decode(&movie) //bodyi movieye gönderdim
 	movie.ID = strconv.Itoa(rand.Intn(10000000))
-	movies = append(movies, movie) //functaki moviese yani globaldekine eklemiş oluyorum
+	movies = append(movies, movie) 
 	json.NewEncoder(w).Encode(movie)
 }
 
